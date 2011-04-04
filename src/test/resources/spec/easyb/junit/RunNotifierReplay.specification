@@ -1,0 +1,58 @@
+package spec.easyb.junit
+
+import static org.mockito.Mockito.*
+import static org.junit.runner.Description.createSuiteDescription
+
+import org.junit.runner.notification.RunNotifier
+import org.junit.runner.notification.Failure
+
+before 'init notifier', {
+   notifierReplay = new org.easyb.junit.RunNotifierReplay()
+   notifier = mock(RunNotifier.class)
+}
+
+it 'should replay no events if none occurred', {
+   notifierReplay.replay(notifier, false)
+
+   verifyZeroInteractions(notifier)
+}
+
+it 'should replay one event if only one occurred', {
+   def description = createSuiteDescription('something')
+   notifierReplay.fireTestStarted(description)
+   
+   notifierReplay.replay(notifier, false)
+   
+   verify(notifier).fireTestStarted(description)
+   verifyNoMoreInteractions(notifier)
+}
+
+it 'should replay one event if only one occurred', {
+   def description = createSuiteDescription('something')
+   notifierReplay.fireTestStarted(description)
+   
+   notifierReplay.replay(notifier, false)
+   
+   verify(notifier).fireTestStarted(description)
+   verifyNoMoreInteractions(notifier)
+}
+
+it 'should replay many events in order if many occurred', {
+   def description1 = createSuiteDescription('anything1')
+   def failure = mock(Failure.class)
+   def description2 = createSuiteDescription('anything2')
+   notifierReplay.fireTestStarted(description1)
+   notifierReplay.fireTestFailure(failure)
+   notifierReplay.fireTestFinished(description1)
+   notifierReplay.fireTestStarted(description2)
+   notifierReplay.fireTestFinished(description2)
+   
+   notifierReplay.replay(notifier, false)
+
+   def inOrder = inOrder(notifier)
+   inOrder.verify(notifier).fireTestStarted(description1)
+   inOrder.verify(notifier).fireTestFailure(failure)
+   inOrder.verify(notifier).fireTestFinished(description1)
+   inOrder.verify(notifier).fireTestStarted(description2)
+   inOrder.verify(notifier).fireTestFinished(description2)
+}

@@ -1,0 +1,4 @@
+.gradle/
+build/
+easyb-junit.i*
+reports/
