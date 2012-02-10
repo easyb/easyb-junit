@@ -129,7 +129,5 @@ public class JUnitExecutionListener extends ExecutionListenerAdaptor {
 
    public void stopBehavior(BehaviorStep behaviorStep, Behavior behavior) {
       stopStepIfRunning();
-      System.out.println();
-      System.out.println();
    }
 }
