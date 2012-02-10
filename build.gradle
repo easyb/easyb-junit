@@ -3,7 +3,7 @@ defaultTasks "idea", "test", "jar"
 apply plugin: 'groovy'
 apply plugin: 'idea'
 
-version = '0.6.0'
+version = '0.6.1'
 
 idea {
         project {
@@ -22,13 +22,13 @@ repositories {
 
 dependencies {
   groovy 'org.codehaus.groovy:groovy-all:1.7.8@jar'
-  compile "org.easyb:easyb:0.9.8"
+  compile 'org.easyb:easyb-core:1.5'
   compile "junit:junit:4.4"
   testCompile "org.mockito:mockito-all:1.8.5"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-1'
+    gradleVersion = '1.0-milestone-7'
 }
 
 
