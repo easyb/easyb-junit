@@ -5,6 +5,16 @@ apply plugin: 'idea'
 
 version = '0.6.0'
 
+idea {
+        project {
+                jdkName = '1.6'
+        }
+        module {
+                downloadSources = false
+                downloadJavadoc = false
+        }
+}
+
 
 repositories {
   mavenCentral()
