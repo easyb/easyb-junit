@@ -3,15 +3,24 @@ package org.easyb.junit;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
-@RunWith(EasybJUnitRunner.class) 
+@RunWith(EasybJUnitRunner.class)
 public abstract class EasybSuite {
 
-    protected File baseDir() {
-      return new File("spec");
-   }
+	private Set<String> behaviorFilenameExtensions = new HashSet<String>();
 
-    protected boolean generateReports(){
+	protected EasybSuite() {
+		behaviorFilenameExtensions.add("story");
+		behaviorFilenameExtensions.add("behavior");
+	}
+
+	protected File baseDir() {
+		return new File("spec");
+	}
+
+	protected boolean generateReports(){
        return false;
     }
 
@@ -33,4 +42,16 @@ public abstract class EasybSuite {
    protected boolean trackTime() {
       return false;
    }
+
+	/**
+	 *
+	 * @param extension without leading '.'
+	 */
+	public void addBehaviorFilenameExtension(String extension) {
+		behaviorFilenameExtensions.add(extension);
+	}
+
+	protected boolean isBehavior(String aFilenameExtension) {
+		return behaviorFilenameExtensions.contains(aFilenameExtension);
+	}
 }

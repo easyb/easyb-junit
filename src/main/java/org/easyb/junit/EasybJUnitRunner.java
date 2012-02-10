@@ -113,8 +113,13 @@ public class EasybJUnitRunner extends Runner {
     }
 
     private boolean isBehavior(File file) {
-        return file.getName().endsWith(".story") || file.getName().endsWith(".specification");
+		return suite.isBehavior(filenameExtension(file.getName()));
     }
+	
+	private static String filenameExtension(String fileName) {
+		int idx= fileName.lastIndexOf(".");
+		return fileName.substring(idx + 1, fileName.length());
+	}
 
     private List<ReportWriter> getReports(EasybSuite suite) {
         if(!suite.generateReports()){
