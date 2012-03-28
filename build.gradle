@@ -1,19 +1,11 @@
 defaultTasks "idea", "test", "jar"
 
+apply plugin: "java"
 apply plugin: 'groovy'
 apply plugin: 'idea'
 
 version = '0.6.1'
 
-idea {
-        project {
-                jdkName = '1.6'
-        }
-        module {
-                downloadSources = false
-                downloadJavadoc = false
-        }
-}
 
 
 repositories {
@@ -28,13 +20,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-7'
+    gradleVersion = '1.0-milestone-9'
 }
 
-
-
-task sources(type: Jar) {
-  classifier = 'sources'
-  from sourceSets.all.allSource
-}
 
